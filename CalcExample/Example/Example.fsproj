@@ -11,6 +11,9 @@
     <AssemblyName>Example</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <Name>Example</Name>
+    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,62 +41,117 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')" />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup>
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Calc.yrd" />
-    <None Include="Calc.fsl" />
     <Compile Include="AST.fs" />
     <Compile Include="Calc.yrd.fs" />
     <Compile Include="CalcLexer.fs" />
     <Compile Include="Program.fs" />
+    <None Include="Calc.fsl" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AbstractLexer.Common">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AbstractLexer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AbstractLexer.Core">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AbstractLexer.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AST.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\AST.Common.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AST.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FST">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\FST.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsYacc">
-      <HintPath>..\packages\YC.Tools.0.0.6.10\lib\net45\FsYacc.exe</HintPath>
+      <HintPath>..\packages\YC.Tools.0.0.6.7\lib\net45\FsYacc.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Generators.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\Generators.Common.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\Generators.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="QuickGraph">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\QuickGraph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReSharperExtension">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\ReSharperExtension.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="YC.AbstractAnalysis.Common">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.AbstractAnalysis.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.AbstractLexer.Interpreter">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.AbstractLexer.Interpreter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="YC.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.Common.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.Constraints">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.Constraints.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Constraints.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.Conversions">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.Conversions.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Conversions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.ReSharper.AbstractAnalysis.Plugin.Helper">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.ReSharper.AbstractAnalysis.Plugin.Helper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRAbstractParser">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.RNGLRAbstractParser.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRAbstractParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRCommon">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.RNGLRCommon.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRParser">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.10-dev\lib\net40\YC.RNGLRParser.dll</HintPath>
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.SEL.SDK.Core">
+      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.SEL.SDK.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
