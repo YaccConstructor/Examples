@@ -1,0 +1,4 @@
+# Forbid to commit generated files
+
+EbnfIso.yrd.fs
+EbnfLexer.fs

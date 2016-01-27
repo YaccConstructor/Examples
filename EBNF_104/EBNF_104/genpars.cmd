@@ -1,1 +1,1 @@
-..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.YaccConstructor.exe -i EbnfIso.yrd
+..\..\..\YaccConstructor\Bin\Debug\v40\YC.YaccConstructor.exe -i EbnfIso.yrd
