@@ -1,0 +1,23 @@
+tokens {
+    _ of string
+}
+
+options {
+    translate = true
+    module = "Ebnf.Parser"
+    infEpsPath = epsilons
+    pos = uint64
+}
+
+module Main
+
+[<Start>]
+file_content = [ section, (: section :) ];
+
+section = SECTION_HEADER, [ section_body ];
+section_body = [ list_of_body_units ], [ list_of_subsections ];
+
+list_of_body_units = VARIABLE_LINE, (: VARIABLE_LINE :);
+
+list_of_subsections = subsection, (: subsection :);
+subsection = SUBSECTION_HEADER, [ list_of_body_units ];

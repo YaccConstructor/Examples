@@ -15,8 +15,8 @@ let main (inputFile: string) =
     let translateArgs = {
         tokenToRange = fun x -> 0UL,0UL
         zeroPosition = 0UL
-        clearAST = false
-        filterEpsilons = true
+        clearAST = false //try to make a tree (default is false assuming OK)
+        filterEpsilons = true // filtering eps-cycles
     }
     
     let tree =

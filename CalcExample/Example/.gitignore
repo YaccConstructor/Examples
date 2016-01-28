@@ -1,0 +1,4 @@
+# Forbid to commit generated files
+
+Calc.yrd.fs
+CalcLexer.fs

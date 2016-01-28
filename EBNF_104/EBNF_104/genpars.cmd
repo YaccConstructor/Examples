@@ -1,0 +1,1 @@
+..\..\..\YaccConstructor\Bin\Debug\v40\YC.YaccConstructor.exe -i EbnfIso.yrd

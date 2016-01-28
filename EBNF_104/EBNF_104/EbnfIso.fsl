@@ -1,0 +1,20 @@
+{
+module Ebnf.Lexer
+open Microsoft.FSharp.Text.Lexing
+open Ebnf.Parser
+
+let lexeme lexbuf = LexBuffer<_>.LexemeString(lexbuf)
+}
+
+let digit = ['0'-'9']
+let whitespace = [' ' '\t' '\r' '\n']
+let chars = ['a'-'z']
+
+
+rule token = parse
+| whitespace { token lexbuf }
+| "_s_" { SECTION_HEADER(lexeme lexbuf) }
+| "_v_" { VARIABLE_LINE(lexeme lexbuf) }
+| "_ss_" { SUBSECTION_HEADER(lexeme lexbuf) }
+| eof { RNGLR_EOF ("")}
+| _ {  failwithf "unexpected input: %s" <| string lexeme }
