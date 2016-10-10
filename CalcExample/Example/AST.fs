@@ -14,7 +14,9 @@ type Expr =
     | EVar of Var
     | BinOp of Op*Expr*Expr
 
-type Stmt = Var*Expr
+type Stmt = 
+    | EqStmt of Var*Expr
+    | SingleExpr of Expr
 
 type program = List<Stmt>
 

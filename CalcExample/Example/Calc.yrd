@@ -18,7 +18,9 @@ module Main
 [<Start>]
 program: (stmt SEMI)+
 
-stmt: v=VAR EQ e=expr {v, e}
+stmt:
+   v=VAR EQ e=expr {EqStmt(v, e)}
+   | e=expr {SingleExpr(e)}
 
 binExpr<operand binOp>: h=operand tl=(binOp operand)* {List.fold (fun l (op,r) -> BinOp(op,l,r)) h tl}
   
@@ -27,7 +29,7 @@ expr: binExpr<term termOp>
 termOp: PLUS {Plus} | MINUS {Minus}
 
 term: binExpr<factor factorOp>
-     
+
 factorOp: MULT {Mult} | DIV {Div}
 
 factor: binExpr<powExpr powOp>
