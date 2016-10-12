@@ -1,6 +1,10 @@
 ﻿module Calc.AST
 
+open System.Collections.Generic
+
 type Var = string
+
+let vars = new Dictionary<string, float>()
 
 type Op = 
     | Pow
@@ -12,11 +16,10 @@ type Op =
 type Expr =
     | Num of float
     | EVar of Var
-    | BinOp of Op*Expr*Expr
+    | BinOp of Op*Expr*Expr*float
 
 type Stmt = 
     | EqStmt of Var*Expr
     | SingleExpr of Expr
 
 type program = List<Stmt>
-
