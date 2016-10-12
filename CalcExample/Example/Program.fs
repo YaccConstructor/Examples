@@ -3,6 +3,7 @@
 open Yard.Generators.Common.AST
 open Yard.Generators.RNGLR.Parser
 
+
 let main (inputFile: string) = 
     use reader = new System.IO.StreamReader(inputFile)
     let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromTextReader reader

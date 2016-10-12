@@ -77,7 +77,8 @@
       <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AST.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.3.0.2\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FST">
@@ -122,6 +123,10 @@
     </Reference>
     <Reference Include="YC.Conversions">
       <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Conversions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.PrettyPrinter">
+      <HintPath>..\packages\YC.PrettyPrinter.0.0.5\lib\net40\YC.PrettyPrinter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.ReSharper.AbstractAnalysis.Plugin.Helper">
