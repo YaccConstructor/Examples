@@ -21,26 +21,30 @@ let main (inputFile: string) =
         filterEpsilons = true // filtering eps-cycles
     }
     
-    let tree: list<list<Stmt * string>> =
+    let tree: list<list<Expr>> =
         match Calc.Parser.buildAst allTokens with
         | Success (sppf, t, d) -> Calc.Parser.translate translateArgs sppf d 
         | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
 
     let variables = new Dictionary<Var, float>()
     for x in tree.Head do
-        let (variable, expression) = (fst x)
         let rec traversal t =
             match t with
             | Num n                -> n
             | EVar v               -> variables.[v]
+            | Stmt (v,e)           ->
+                 let r = traversal e
+                 variables.[v] <- r
+                 r
             | BinOp(Pow, e1, e2)   -> traversal e1 ** traversal e2
             | BinOp(Plus, e1, e2)  -> traversal e1 + traversal e2
             | BinOp(Mult, e1, e2)  -> traversal e1 * traversal e2
             | BinOp(Div, e1, e2)   -> traversal e1 / traversal e2
             | BinOp(Minus, e1, e2) -> traversal e1 - traversal e2
-        let result = traversal expression
-        variables.Add(variable, result)
-        printf "%s=%f\n" variable result
+        let result = traversal x
+        printf "%f\n" result
+    for x in tree.Head do
+        printf "%A\n\n" x
 
 main @"..\..\input"
 

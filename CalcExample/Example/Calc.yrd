@@ -16,12 +16,14 @@ options {
 module Main
 
 [<Start>]
-program: (stmt SEMI)+
+program: l=(sExpr SEMI)+ {List.map (fun (e,_) -> e) l}
 
-stmt: v=VAR EQ e=expr {v, e}
 
 binExpr<operand binOp>: h=operand tl=(binOp operand)* {List.fold (fun l (op,r) -> BinOp(op,l,r)) h tl}
   
+sExpr: v=VAR EQ e=expr {Stmt(v, e)}
+	|expr
+
 expr: binExpr<term termOp> 
 
 termOp: PLUS {Plus} | MINUS {Minus}
@@ -37,5 +39,6 @@ powOp: POW {Pow}
 powExpr:
    n=NUMBER {Num (float n)}
    | v=VAR {EVar(v)}
+   | LBRACE v=VAR EQ e=expr RBRACE {Stmt(v,e)}
    | LBRACE e=expr RBRACE {e}
 
