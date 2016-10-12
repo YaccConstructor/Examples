@@ -20,40 +20,30 @@ program: (stmt SEMI)+
 
 stmt:
    v=VAR EQ e=expr {
-   let getValue e = match e with
-   | Num num -> num
-   | BinOp (op,l,r,result) -> result
-   | EVar (name) -> vars.[name]
-
    let result = getValue(e)
-
-   let ok, item = vars.TryGetValue(v)
-   if (ok) then
+   if (vars.ContainsKey(v)) then
      vars.[v] <- result
    else
      vars.Add(v, result)
+   returnVal = result
    EqStmt(v, e)
    }
 
-   | e=expr {SingleExpr(e)}
+   | e=expr {
+   returnVal = getValue(e)
+   SingleExpr(e)
+   }
 
 binExpr<operand binOp>: h=operand tl=(binOp operand)* {
-
-let getValue e = match e with
-   | Num num -> num
-   | BinOp (op,l,r,result) -> result
-   | EVar (name) -> vars.[name]
-
-let calcFunc l (op, r) =
-   let result = match op with
-   | Plus  -> getValue l + getValue r
-   | Minus -> getValue l - getValue r
-   | Mult  -> getValue l * getValue r
-   | Div   -> getValue l / getValue r
-   | Pow   -> getValue l ** getValue r
-   BinOp(op,l,r, result)
-
-List.fold calcFunc h tl
+   let calcFunc l (op, r) =
+      let result = match op with
+      | Plus  -> getValue l + getValue r
+      | Minus -> getValue l - getValue r
+      | Mult  -> getValue l * getValue r
+      | Div   -> getValue l / getValue r
+      | Pow   -> getValue l ** getValue r
+      BinOp(op,l,r, result)
+   List.fold calcFunc h tl
 }
 
 expr: binExpr<term termOp>

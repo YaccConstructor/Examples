@@ -4,6 +4,8 @@ open System.Collections.Generic
 
 type Var = string
 
+let returnVal = nan
+
 let vars = new Dictionary<string, float>()
 
 type Op = 
@@ -22,4 +24,7 @@ type Stmt =
     | EqStmt of Var*Expr
     | SingleExpr of Expr
 
-type program = List<Stmt>
+let getValue e = match e with
+   | Num num -> num
+   | BinOp (op,l,r,result) -> result
+   | EVar (name) -> vars.[name]
