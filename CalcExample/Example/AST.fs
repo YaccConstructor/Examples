@@ -13,8 +13,7 @@ type Expr =
     | Num of float
     | EVar of Var
     | BinOp of Op*Expr*Expr
+    | Stmt of Var*Expr
 
-type Stmt = Var*Expr
-
-type program = List<Stmt>
+type program = List<Expr>
 
