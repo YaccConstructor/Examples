@@ -4,7 +4,7 @@ open System.Collections.Generic
 
 type Var = string
 
-let returnVal = nan
+let mutable returnVal = nan
 
 let vars = new Dictionary<string, float>()
 
@@ -28,3 +28,12 @@ let getValue e = match e with
    | Num num -> num
    | BinOp (op,l,r,result) -> result
    | EVar (name) -> vars.[name]
+
+let calcFunc l (op, r) =
+   let operator = match op with
+   | Plus  -> (+)
+   | Minus -> (-)
+   | Mult  -> (*)
+   | Div   -> (/)
+   | Pow   -> ( ** )
+   BinOp(op,l,r, operator (getValue l) (getValue r))

@@ -21,28 +21,19 @@ program: (stmt SEMI)+
 stmt:
    v=VAR EQ e=expr {
    let result = getValue(e)
-   if (vars.ContainsKey(v)) then
+   if vars.ContainsKey v then
      vars.[v] <- result
    else
      vars.Add(v, result)
-   returnVal = result
+   returnVal <- result
    EqStmt(v, e)
    }
-
    | e=expr {
-   returnVal = getValue(e)
+   returnVal <- getValue(e)
    SingleExpr(e)
    }
 
 binExpr<operand binOp>: h=operand tl=(binOp operand)* {
-   let calcFunc l (op, r) =
-      let result = match op with
-      | Plus  -> getValue l + getValue r
-      | Minus -> getValue l - getValue r
-      | Mult  -> getValue l * getValue r
-      | Div   -> getValue l / getValue r
-      | Pow   -> getValue l ** getValue r
-      BinOp(op,l,r, result)
    List.fold calcFunc h tl
 }
 
