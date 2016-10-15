@@ -1,0 +1,1 @@
+..\packages\YC.Tools.0.0.6.7\lib\net40\FsLex.exe BoolCalc.fsl --unicode -o BoolCalcLexer.fs 

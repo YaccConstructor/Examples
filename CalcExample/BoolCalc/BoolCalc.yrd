@@ -1,0 +1,72 @@
+﻿{
+open BoolCalc.AST
+}
+
+tokens {
+    _ of string
+}
+
+options {
+    translate = true
+    module = "BoolCalc.Parser"
+    infEpsPath = epsilons
+    pos = uint64
+}
+
+module Main
+
+[<Start>]
+program: (stmt SEMI)+
+
+stmt:
+   v=VAR EQ e=expr {
+   let result = getValue(e)
+   if (vars.ContainsKey v) then
+     vars.[v] <- result
+   else
+     vars.Add(v, result)
+   returnVal <- result
+   EqStmt(v, e)
+   }
+
+   | e=expr {
+   returnVal <- getValue(e)
+   SingleExpr(e)
+   }
+
+binExpr<operand binOp>: h=operand tl=(binOp operand)* {
+   List.fold calcFunc h tl
+}
+
+expr: binExpr<term termOp>
+
+termOp: PLUS {Plus} | MINUS {Minus}
+
+term: binExpr<factor factorOp>
+
+factorOp: MULT {Mult} | DIV {Div}
+
+factor: binExpr<powExpr powOp>
+
+powOp: POW {Pow}
+
+powExpr:
+   n=NUMBER {Num (float n)}
+   | v=VAR {EVar(v)}
+   | LBRACE e=expr RBRACE {e}
+   | e=boolExpr {e}
+
+//IFTHENELSE
+
+boolExpr: IF c=boolCond THEN e1=expr ELSE e2=expr {
+   IfThenElse(c,e1,e2)
+}
+
+boolCond:
+   LBRACE e1=expr o=compOp e2=expr RBRACE { calcCompBool e1 o e2 }
+   | LBRACE b1=boolCond o=logOp b2=boolCond RBRACE { calcLogBool b1 o b2 }
+   | LBRACE TRUE RBRACE {BoolConst true}
+   | LBRACE FALSE RBRACE {BoolConst false}
+
+logOp: OR {Or} | AND {And}
+compOp: EQUAL {Equal} | NOTEQUAL {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}
