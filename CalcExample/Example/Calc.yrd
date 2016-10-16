@@ -16,11 +16,14 @@ options {
 module Main
 
 [<Start>]
-program: (stmt SEMI)+
+program: stmts=(stmt SEMI)+ { 
+let code = List.map (fun (st,semi) -> st) stmts
+(code, vars, returnVal)
+}
 
 stmt:
    v=VAR EQ e=expr {
-   let result = getValue(e)
+   let result = getValue e
    if vars.ContainsKey v then
      vars.[v] <- result
    else
@@ -29,7 +32,7 @@ stmt:
    EqStmt(v, e)
    }
    | e=expr {
-   returnVal <- getValue(e)
+   returnVal <- getValue e
    SingleExpr(e)
    }
 

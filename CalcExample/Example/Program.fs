@@ -1,10 +1,13 @@
-﻿open Calc.Lexer
+﻿module Calc.Main
 
+open Calc.Lexer
 open Yard.Generators.Common.AST
 open Yard.Generators.RNGLR.Parser
+open YC.PrettyPrinter.Pretty
+open Calc.AST
+open System.Collections.Generic
 
-
-let main (inputFile: string) = 
+let execute (inputFile: string) = 
     use reader = new System.IO.StreamReader(inputFile)
     let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromTextReader reader
     let allTokens = 
@@ -20,11 +23,12 @@ let main (inputFile: string) =
         filterEpsilons = true // filtering eps-cycles
     }
     
-    let tree =
+    let tree: list<result> =
         match Calc.Parser.buildAst allTokens with
         | Success (sppf, t, d) -> Calc.Parser.translate translateArgs sppf d 
         | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
 
-    printfn "TREE: %A" tree
+    tree
 
-main @"..\..\input"
+let tree: list<result> = execute(@"../../input")
+printfn "Tree %A" tree.[0]

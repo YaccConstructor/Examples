@@ -24,6 +24,8 @@ type Stmt =
     | EqStmt of Var*Expr
     | SingleExpr of Expr
 
+type result = list<Stmt>*Dictionary<string,float>*float //Statements, variables, return value
+
 let getValue e = match e with
    | Num num -> num
    | BinOp (op,l,r,result) -> result
