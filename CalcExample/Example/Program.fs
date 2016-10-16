@@ -7,9 +7,8 @@ open YC.PrettyPrinter.Pretty
 open Calc.AST
 open System.Collections.Generic
 
-let execute (inputFile: string) = 
-    use reader = new System.IO.StreamReader(inputFile)
-    let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromTextReader reader
+let execute (code) = 
+    let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromString code
     let allTokens = 
         seq
             {
@@ -27,8 +26,9 @@ let execute (inputFile: string) =
         match Calc.Parser.buildAst allTokens with
         | Success (sppf, t, d) -> Calc.Parser.translate translateArgs sppf d 
         | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
+    
 
-    tree
-
-let tree: list<result> = execute(@"../../input")
-printfn "Tree %A" tree.[0]
+    tree.[0]
+    
+let tree: result = execute("3+2;")
+printfn "Tree %A" tree
