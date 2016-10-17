@@ -82,6 +82,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoolCalc\BoolCalc.fsproj">
+      <Name>BoolCalc</Name>
+      <Project>{d43f0f74-c7c3-494a-9101-b2155c4bed78}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Example\Example.fsproj">
       <Name>Example</Name>
       <Project>{f75b1599-aab6-4c35-96a6-bb97765a8912}</Project>

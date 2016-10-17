@@ -16,7 +16,10 @@ options {
 module Main
 
 [<Start>]
-program: (stmt SEMI)+
+program: stmts = (stmt SEMI)+ {
+let code = List.map (fun (st,semi) -> st) stmts
+(code, vars, returnVal)
+}
 
 stmt:
    v=VAR EQ e=expr {
@@ -65,8 +68,8 @@ boolExpr: IF c=boolCond THEN e1=expr ELSE e2=expr {
 boolCond:
    LBRACE e1=expr o=compOp e2=expr RBRACE { calcCompBool e1 o e2 }
    | LBRACE b1=boolCond o=logOp b2=boolCond RBRACE { calcLogBool b1 o b2 }
-   | LBRACE TRUE RBRACE {BoolConst true}
-   | LBRACE FALSE RBRACE {BoolConst false}
+   | TRUE {BoolConst true}
+   | FALSE {BoolConst false}
 
 logOp: OR {Or} | AND {And}
 compOp: EQUAL {Equal} | NOTEQUAL {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}

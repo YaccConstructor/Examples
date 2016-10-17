@@ -42,6 +42,8 @@ type Stmt =
     | EqStmt of Var*Expr
     | SingleExpr of Expr
 
+type result = list<Stmt>*Dictionary<string,float>*float //Statements, variables, return value
+
 let getBoolValue b = match b with
     | BoolConst boolean -> boolean
     | CompCond (_,_,_,res) | LogCond (_,_,_,res)

@@ -2,6 +2,7 @@
 
 open NUnit.Framework
 open Calc.Main
+open BoolCalc.Main
 open System.IO
 
 [<TestFixture>]
@@ -44,3 +45,61 @@ type TestClass() =
         Assert.AreEqual(v.["z"], 4)
         Assert.AreEqual(v.["x"],45)
         Assert.AreEqual(v.["v"],2)
+
+     //BoolCalc test
+     [<Test>]
+     member this.simpleIfThenElseTest() =
+        Assert.AreEqual(returnVal(executeB "if true then 0 else 1;"), 0);
+        Assert.AreEqual(returnVal(executeB "if (2+2 > 5) then 5+2 else 5+3;"), 8);
+        Assert.AreEqual(returnVal(executeB "if (25 == 5**2) then 0 else 1;"), 0);
+        Assert.AreEqual(returnVal(executeB "if (26 < 5**2) then 0 else 1;"), 1);
+     
+     [<Test>]
+     member this.logIfThenElseTest() =
+        //OR
+        Assert.AreEqual(returnVal(executeB "if (false || false) then 1 else 0;") , 0)
+        Assert.AreEqual(returnVal(executeB "if (false || true) then 1 else 0;" ) , 1)
+        Assert.AreEqual(returnVal(executeB "if (true  || false) then 1 else 0;") , 1)
+        Assert.AreEqual(returnVal(executeB "if (true  || true) then 1 else 0;" ) , 1)
+        //AND
+        Assert.AreEqual(returnVal(executeB "if (false && false) then 1 else 0;") , 0)
+        Assert.AreEqual(returnVal(executeB "if (false && true) then 1 else 0;" ) , 0)
+        Assert.AreEqual(returnVal(executeB "if (true  && false) then 1 else 0;") , 0)
+        Assert.AreEqual(returnVal(executeB "if (true  && true) then 1 else 0;" ) , 1)
+
+     [<Test>]
+     member this.logExpIfThenElseTest() =
+        Assert.AreEqual(returnVal(executeB "if ((5+3==8)&&(3>2)) then 1 else 0;") , 1)
+        Assert.AreEqual(returnVal(executeB "if ((2!=2)||(2**2==5)) then 1 else 0;"),0)
+        Assert.AreEqual(returnVal(executeB "if ((2!=2)||true) then 1 else 0;"),     1)
+
+     [<Test>]
+     member this.ifThenElseWithVarsTest() =
+        let code = "x = 2;\
+                    z = 3;
+                    y = if (((x-z)==-1)||(x>z)) then z
+                    else x;"
+        let v = vars(executeB code)
+        Assert.AreEqual(v.["y"], v.["z"])
+
+     [<Test>]
+     member this.subIfThenElseTest() =
+        let code = "x=3;
+                    y=2;
+                    z = if (x==3) then
+                           if (y!=2) then (x**3)
+                           else (y**4)
+                        else 0;"
+        let v = vars(executeB code)
+        Assert.AreEqual(v.["z"], 16)
+
+     [<Test>]
+     member this.ifThenElseAsValue() =
+        let code = "x=3;
+                    y=2;
+                    z = y + (if (x==3) then
+                               if (y!=2) then (x**3)
+                               else (y**4)
+                             else 0)- 16;"
+        let v = vars(executeB code)
+        Assert.AreEqual(v.["z"], 2)

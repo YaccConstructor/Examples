@@ -1,11 +1,12 @@
-﻿open BoolCalc.Lexer
+﻿module BoolCalc.Main
 
+open BoolCalc.Lexer
+open BoolCalc.AST
 open Yard.Generators.Common.AST
 open Yard.Generators.RNGLR.Parser
 
-let main (inputFile: string) = 
-    use reader = new System.IO.StreamReader(inputFile)
-    let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromTextReader reader
+let executeB(code) = 
+    let lexbuf = Microsoft.FSharp.Text.Lexing.LexBuffer<_>.FromString code
     let allTokens = 
         seq
             {
@@ -19,11 +20,12 @@ let main (inputFile: string) =
         filterEpsilons = true // filtering eps-cycles
     }
     
-    let tree =
+    let tree:list<result> =
         match BoolCalc.Parser.buildAst allTokens with
         | Success (sppf, t, d) -> BoolCalc.Parser.translate translateArgs sppf d 
         | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
 
-    let treeText = sprintf "%A" tree
-    printfn "%s" treeText
-main @"..\..\input"
+    tree.[0]
+
+let tree: result = executeB("3+2;")
+printfn "%A" tree
