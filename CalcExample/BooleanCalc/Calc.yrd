@@ -17,7 +17,7 @@ options {
 module Main
 
 [<Start>]
-program: (s=stmt SEMI{s})+
+program: (s=stmt SEMI{s})
 
 stmt:
 	 v=VAR EQ e=boolExpr {v, e, BooleanT}
@@ -61,3 +61,7 @@ powExpr:
    n=NUMBER {Num (float n)}
    | v=VAR {EVar(v)}
    | LBRACE e=arExpr RBRACE {e}
+   | conditionExpr
+
+expr: e=arExpr {e} | e=boolExpr {e}
+conditionExpr: IF c=boolExpr THEN e1=expr ELSE e2=expr {ConditionStmt(c, e1, e2)}

@@ -27,25 +27,27 @@ let main (inputFile: string) =
     let tree:list<list<Stmt>> =
         match Calc.Parser.buildAst allTokens with
         | Success (sppf, t, d) -> Calc.Parser.translate translateArgs sppf d 
-//        | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
+        | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
 
-    let variables = new Dictionary<Var, Variable>()
-    
+    let variables = new Dictionary<Var, Value>()
+
     let rec evalAriphmic t =
+   
        match t with
-        | BinOp(Pow, e1, e2)   -> evalAriphmic e1 ** evalAriphmic e2
-        | BinOp(Plus, e1, e2)  -> evalAriphmic e1 + evalAriphmic e2
-        | BinOp(Mult, e1, e2)  -> evalAriphmic e1 * evalAriphmic e2
-        | BinOp(Div, e1, e2)   -> evalAriphmic e1 / evalAriphmic e2
-        | BinOp(Minus, e1, e2) -> evalAriphmic e1 - evalAriphmic e2 
-        | Num n                -> n
-        | EVar v               -> 
+        | BinOp(Pow, e1, e2)        -> evalAriphmic e1 ** evalAriphmic e2
+        | BinOp(Plus, e1, e2)       -> evalAriphmic e1 + evalAriphmic e2
+        | BinOp(Mult, e1, e2)       -> evalAriphmic e1 * evalAriphmic e2
+        | BinOp(Div, e1, e2)        -> evalAriphmic e1 / evalAriphmic e2
+        | BinOp(Minus, e1, e2)      -> evalAriphmic e1 - evalAriphmic e2 
+        | Num n                     -> n
+        | ConditionStmt(c, e1, e2)  -> if evalBool c then evalAriphmic e1 else evalAriphmic e2
+        | EVar v                    -> 
             let value = variables.[v]
             match value with
             | Number n-> n
-            | Boolean b -> float 0 //Throw error here  
+            | Boolean b -> failwith "type mismatch"
 
-    let rec evalBool t =
+    and evalBool t =
         match t with
         | BoolConst b               -> b
         | BinOp(And, e1, e2)        -> evalBool e1 && evalBool e2
@@ -56,16 +58,14 @@ let main (inputFile: string) =
         | CompOp(LessEq, e1, e2)    -> evalAriphmic e1 <= evalAriphmic e2  
         | CompOp(GreaterEq, e1, e2) -> evalAriphmic e1 >= evalAriphmic e2
         | CompOp(Eq, e1, e2)        -> evalAriphmic e1 = evalAriphmic e2
-        | EVar v               -> 
+        | EVar v                    -> 
             let value = variables.[v]
             match value with
-            | Number n-> false //Throw error here 
+            | Number n-> failwith "type mismatch"
             | Boolean b -> b 
-
      
     let evalStmt s =
         let v, e, t = s
-
         let result =
             match t with
             | BooleanT  -> Boolean (evalBool e)

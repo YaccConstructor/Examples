@@ -17,7 +17,7 @@ type ExprType =
     | BooleanT
     | AriphmicT
 
-type Variable =   
+type Value =   
     | Number of float
     | Boolean of bool  
 
@@ -27,6 +27,7 @@ type COp =
     | LessEq
     | GreaterEq
     | Eq
+    
 type Expr =
     | Num of float
     | BoolConst of bool
@@ -34,6 +35,7 @@ type Expr =
     | UnaryOp of UOp*Expr
     | BinOp of BOp*Expr*Expr
     | CompOp of COp*Expr*Expr
+    | ConditionStmt of Expr*Expr*Expr
 
 
 type Stmt = Var*Expr * ExprType
