@@ -51,7 +51,7 @@ type TestClass() =
      member this.simpleIfThenElseTest() =
         Assert.AreEqual(returnVal(executeB "if true then 0 else 1;"), 0);
         Assert.AreEqual(returnVal(executeB "if (2+2 > 5) then 5+2 else 5+3;"), 8);
-        Assert.AreEqual(returnVal(executeB "if (25 == 5**2) then 0 else 1;"), 0);
+        Assert.AreEqual(returnVal(executeB "if (25 = 5**2) then 0 else 1;"), 0);
         Assert.AreEqual(returnVal(executeB "if (26 < 5**2) then 0 else 1;"), 1);
      
      [<Test>]
@@ -69,15 +69,15 @@ type TestClass() =
 
      [<Test>]
      member this.logExpIfThenElseTest() =
-        Assert.AreEqual(returnVal(executeB "if ((5+3==8)&&(3>2)) then 1 else 0;") , 1)
-        Assert.AreEqual(returnVal(executeB "if ((2!=2)||(2**2==5)) then 1 else 0;"),0)
+        Assert.AreEqual(returnVal(executeB "if ((5+3=8)&&(3>2)) then 1 else 0;") , 1)
+        Assert.AreEqual(returnVal(executeB "if ((2!=2)||(2**2=5)) then 1 else 0;"),0)
         Assert.AreEqual(returnVal(executeB "if ((2!=2)||true) then 1 else 0;"),     1)
 
      [<Test>]
      member this.ifThenElseWithVarsTest() =
         let code = "x = 2;\
                     z = 3;
-                    y = if (((x-z)==-1)||(x>z)) then z
+                    y = if (((x-z)=-1)||(x>z)) then z
                     else x;"
         let v = vars(executeB code)
         Assert.AreEqual(v.["y"], v.["z"])
@@ -86,7 +86,7 @@ type TestClass() =
      member this.subIfThenElseTest() =
         let code = "x=3;
                     y=2;
-                    z = if (x==3) then
+                    z = if (x=3) then
                            if (y!=2) then (x**3)
                            else (y**4)
                         else 0;"
@@ -97,7 +97,7 @@ type TestClass() =
      member this.ifThenElseAsValue() =
         let code = "x=3;
                     y=2;
-                    z = y + (if (x==3) then
+                    z = y + (if (x=3) then
                                if (y!=2) then (x**3)
                                else (y**4)
                              else 0)- 16;"

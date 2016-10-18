@@ -25,8 +25,7 @@ rule token = parse
 | '=' { EQ(lexeme lexbuf) }
 | "&&" { AND(lexeme lexbuf) }
 | "||" { OR(lexeme lexbuf) }
-| "==" { EQUAL(lexeme lexbuf) }
-| "!=" { NOTEQUAL(lexeme lexbuf) }
+| "!=" { NOTEQ(lexeme lexbuf) }
 | "if" { IF(lexeme lexbuf)}
 | "then" { THEN(lexeme lexbuf) }
 | "else" { ELSE(lexeme lexbuf) }

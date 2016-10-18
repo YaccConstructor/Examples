@@ -72,4 +72,4 @@ boolCond:
    | FALSE {BoolConst false}
 
 logOp: OR {Or} | AND {And}
-compOp: EQUAL {Equal} | NOTEQUAL {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}
+compOp: EQ {Equal} | NOTEQ {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}
