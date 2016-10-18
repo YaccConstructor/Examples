@@ -23,6 +23,7 @@ rule token = parse
 | '*' { MULT(lexeme lexbuf) }
 | ';' { SEMI(lexeme lexbuf) }
 | '=' { EQ(lexeme lexbuf) }
+| '!' { NOT(lexeme lexbuf) }
 | "&&" { AND(lexeme lexbuf) }
 | "||" { OR(lexeme lexbuf) }
 | "!=" { NOTEQ(lexeme lexbuf) }

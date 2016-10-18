@@ -70,6 +70,6 @@ boolCond:
    | LBRACE b1=boolCond o=logOp b2=boolCond RBRACE { calcLogBool b1 o b2 }
    | TRUE {BoolConst true}
    | FALSE {BoolConst false}
-
+   | NOT b=boolCond {calcNotBool b}
 logOp: OR {Or} | AND {And}
 compOp: EQ {Equal} | NOTEQ {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}

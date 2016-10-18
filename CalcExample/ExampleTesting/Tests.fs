@@ -103,3 +103,10 @@ type TestClass() =
                              else 0)- 16;"
         let v = vars(executeB code)
         Assert.AreEqual(v.["z"], 2)
+
+     [<Test>]
+     member this.notOpTest() =
+        Assert.AreEqual(returnVal(executeB "if !true then 1 else 0;"), 0)
+        Assert.AreEqual(returnVal(executeB "if !false then 1 else 0;"),1)
+        Assert.AreEqual(returnVal(executeB "if !(3>2) then 1 else 0;"),0)
+        Assert.AreEqual(returnVal(executeB "if (!false && !false) then 1 else 0;"),1)

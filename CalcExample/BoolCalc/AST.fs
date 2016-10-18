@@ -18,7 +18,7 @@ type Op =
 type LogOp = 
     | Or
     | And
-
+    
 type CompOp =
     | Equal
     | NotEqual
@@ -29,7 +29,8 @@ type CompOp =
 
 type BoolCond = 
     | BoolConst of bool
-    | LogCond of LogOp*BoolCond*BoolCond*bool
+    | NotCond of  BoolCond*bool
+    | LogCond of  LogOp*BoolCond*BoolCond*bool
     | CompCond of CompOp*Expr*Expr*bool 
 
 and Expr =
@@ -46,6 +47,7 @@ type result = list<Stmt>*Dictionary<string,float>*float //Statements, variables,
 
 let getBoolValue b = match b with
     | BoolConst boolean -> boolean
+    | NotCond (_,res) -> res  
     | CompCond (_,_,_,res) | LogCond (_,_,_,res)
       -> res
 
@@ -64,7 +66,7 @@ let calcFunc l (op, r) =
     | Pow   -> ( ** )
     BinOp(op,l,r, operator (getValue l) (getValue r))
 
-let calcLogBool l op r = 
+let calcLogBool l (op,r)  =
     let log = match op with
     | And -> (&&)
     | Or  -> (||)
@@ -79,3 +81,5 @@ let calcCompBool l op r =
     | Ls       -> (<)
     | Le       -> (<=)
     CompCond(op,l,r, comp (getValue l)  (getValue r))
+
+let calcNotBool e = NotCond(e, not (getBoolValue e))
