@@ -17,11 +17,12 @@ options {
 module Main
 
 [<Start>]
-program: (s=stmt SEMI{s})
+program: (s=stmt SEMI{s})+ 
 
 stmt:
 	 v=VAR EQ e=boolExpr {v, e, BooleanT}
 	 | v=VAR EQ e=arExpr {v, e, AriphmicT}
+	 | e=arExpr {null, e, AriphmicT }
 
 
 binExpr<operand binOp>: h=operand tl=(binOp operand)* {applyOp h tl}
@@ -40,6 +41,7 @@ notExpr:
 	| v=VAR {EVar(v)}
 	| e1=arExpr o=compOp e2=arExpr {CompOp(o, e1, e2)}
 	| TRUE {BoolConst true} | FALSE {BoolConst false}
+	| conditionExpr
 
 compOp: LESS {Less} | GREATER {Greater} 
 	  | LESSEQ {LessEq} | GREATEREQ {GreaterEq}
