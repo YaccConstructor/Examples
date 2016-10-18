@@ -74,10 +74,16 @@ type TestClass() =
         Assert.AreEqual(returnVal(executeB "if ((2!=2)||true) then 1 else 0;"),     1)
 
      [<Test>]
+     member this.orderBoolCondTest() =
+        Assert.AreEqual(returnVal(executeB "if (false && true || false) then 1 else 0;"), 0)
+        Assert.AreEqual(returnVal(executeB "if (true && (false || true)) then 1 else 0;"), 1)
+        Assert.AreEqual(returnVal(executeB "if (!true || (true && true && false)) then 1 else 0;"), 0)
+
+     [<Test>]
      member this.ifThenElseWithVarsTest() =
         let code = "x = 2;\
                     z = 3;
-                    y = if (((x-z)=-1)||(x>z)) then z
+                    y = if ((x-z)=-1 || x>z) then z
                     else x;"
         let v = vars(executeB code)
         Assert.AreEqual(v.["y"], v.["z"])
@@ -106,7 +112,8 @@ type TestClass() =
 
      [<Test>]
      member this.notOpTest() =
-        Assert.AreEqual(returnVal(executeB "if !true then 1 else 0;"), 0)
+        Assert.AreEqual(returnVal(executeB "if (!true) then 1 else 0;"), 0)
+        Assert.AreEqual(returnVal(executeB "if !(!true) then 1 else 0;"),1)
         Assert.AreEqual(returnVal(executeB "if !false then 1 else 0;"),1)
         Assert.AreEqual(returnVal(executeB "if !(3>2) then 1 else 0;"),0)
         Assert.AreEqual(returnVal(executeB "if (!false && !false) then 1 else 0;"),1)

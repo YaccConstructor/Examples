@@ -65,11 +65,23 @@ boolExpr: IF c=boolCond THEN e1=expr ELSE e2=expr {
    IfThenElse(c,e1,e2)
 }
 
-boolCond:
-   LBRACE e1=expr o=compOp e2=expr RBRACE { calcCompBool e1 o e2 }
-   | LBRACE b1=boolCond o=logOp b2=boolCond RBRACE { calcLogBool b1 o b2 }
+boolCondMeta<boolVal boolOp>: h=boolVal tl=(boolOp boolVal)* {
+   List.fold calcLogBool h tl
+}
+
+boolCond: boolCondMeta<orExpr or>
+
+or: OR {Or}
+
+orExpr: boolCondMeta<andExpr and>
+
+and: AND {And}
+
+andExpr:
+   e1=expr o=compOp e2=expr{ calcCompBool e1 o e2 }
+   | LBRACE e=boolCond RBRACE { e }
    | TRUE {BoolConst true}
    | FALSE {BoolConst false}
    | NOT b=boolCond {calcNotBool b}
-logOp: OR {Or} | AND {And}
+
 compOp: EQ {Equal} | NOTEQ {NotEqual} | GR {Gr} | GE {Ge} | LS {Ls} | LE {Le}
