@@ -28,6 +28,10 @@ rule token = parse
 | "not" { NOT(lexeme lexbuf) }
 | "true" { TRUE(lexeme lexbuf) }
 | "false" { FALSE(lexeme lexbuf) }
+| "<" { LESS(lexeme lexbuf) }
+| ">" { GREATER(lexeme lexbuf) }
+| "<=" { LESSEQ(lexeme lexbuf) }
+| ">=" { GREATEREQ(lexeme lexbuf) }
 | chars+ { VAR(lexeme lexbuf) }
 | eof { RNGLR_EOF ("")}
 | _ {  failwithf "unexpected input: %s" <| string lexeme }

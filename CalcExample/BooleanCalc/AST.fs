@@ -21,12 +21,19 @@ type Variable =
     | Number of float
     | Boolean of bool  
 
+type COp =
+    | Less
+    | Greater
+    | LessEq
+    | GreaterEq
+    | Eq
 type Expr =
     | Num of float
     | BoolConst of bool
     | EVar of Var
     | UnaryOp of UOp*Expr
     | BinOp of BOp*Expr*Expr
+    | CompOp of COp*Expr*Expr
 
 
 type Stmt = Var*Expr * ExprType
