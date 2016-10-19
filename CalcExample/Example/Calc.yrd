@@ -16,18 +16,36 @@ options {
 module Main
 
 [<Start>]
-program: (stmt SEMI)+
+program: stmts=(stmt SEMI)+ { 
+let code = List.map (fun (st,semi) -> st) stmts
+(code, vars, returnVal)
+}
 
-stmt: v=VAR EQ e=expr {v, e}
+stmt:
+   v=VAR EQ e=expr {
+   let result = getValue e
+   if vars.ContainsKey v then
+     vars.[v] <- result
+   else
+     vars.Add(v, result)
+   returnVal <- result
+   EqStmt(v, e)
+   }
+   | e=expr {
+   returnVal <- getValue e
+   SingleExpr(e)
+   }
 
-binExpr<operand binOp>: h=operand tl=(binOp operand)* {List.fold (fun l (op,r) -> BinOp(op,l,r)) h tl}
-  
-expr: binExpr<term termOp> 
+binExpr<operand binOp>: h=operand tl=(binOp operand)* {
+   List.fold calcFunc h tl
+}
+
+expr: binExpr<term termOp>
 
 termOp: PLUS {Plus} | MINUS {Minus}
 
 term: binExpr<factor factorOp>
-     
+
 factorOp: MULT {Mult} | DIV {Div}
 
 factor: binExpr<powExpr powOp>

@@ -1,0 +1,6 @@
+z = 2 * 5;
+y = 20;
+x = y + if((3+3>2) || (true)) then y
+	    else z;
+
+if (x>150) then x else y;
