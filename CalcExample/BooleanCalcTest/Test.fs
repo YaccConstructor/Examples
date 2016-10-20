@@ -20,3 +20,23 @@ type TestClass() =
     [<Test>]
     member this.conditionStatementTest() = 
         Assert.AreEqual(evaluate "if 3>5 then 0 else 1;", 1)
+
+    [<Test>]
+    member this.nestedConditionStatementsTest() = 
+        Assert.AreEqual(evaluate "if if true then true else false then 1 else 0;", 1)
+
+    [<Test>]
+    member this.aLotOfNetstedIfsTest() = 
+        Assert.AreEqual(evaluate "
+        if 
+            if true then true else false
+        then
+            if false then 0 else 1
+        else 
+            if true then 0 else 1
+        ;", 1)
+
+    [<Test>]
+    member this.ifInAripmicExpressionTest() = 
+        Assert.AreEqual(
+            evaluate "if (((if true then 1 else 0) * 10 + (if false then 3 else 6) / 3) = 12) then 42 else 4;", 42)
