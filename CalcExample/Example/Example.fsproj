@@ -65,88 +65,164 @@
     <None Include="Calc.fsl" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AbstractLexer.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AbstractLexer.Common.dll</HintPath>
+    <Reference Include="Argu">
+      <HintPath>..\packages\Argu.3.2.0\lib\net40\Argu.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AbstractLexer.Core">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AbstractLexer.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AST.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\AST.Common.dll</HintPath>
+    <Reference Include="DotParser">
+      <HintPath>..\packages\DotParser.1.0.6\lib\net45\DotParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.0.2\lib\net40\FSharp.Core.dll</HintPath>
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FST">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\FST.dll</HintPath>
+    <Reference Include="FSharpx.Collections">
+      <HintPath>..\packages\FSharpx.Collections.1.15.1\lib\net40\FSharpx.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FsYacc">
-      <HintPath>..\packages\YC.Tools.0.0.6.7\lib\net45\FsYacc.exe</HintPath>
+    <Reference Include="FSharpx.Collections.Experimental">
+      <HintPath>..\packages\FSharpx.Collections.Experimental.1.15.1\lib\net40\FSharpx.Collections.Experimental.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Generators.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\Generators.Common.dll</HintPath>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\packages\Mono.Addins.1.2\lib\net40\Mono.Addins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="QuickGraph">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\QuickGraph.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ReSharperExtension">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\ReSharperExtension.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="YC.AbstractAnalysis.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.AbstractAnalysis.Common.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.AbstractAnalysis.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.AbstractLexer.Interpreter">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.AbstractLexer.Interpreter.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.AbstractLexer.Interpreter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.AST.Common">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.AST.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.Common">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Common.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.Constraints">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Constraints.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.Constraints.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.Conversions">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.Conversions.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.Conversions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.FsYacc">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.FsYacc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.FsYaccFrontend">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.FsYaccFrontend.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.Generators.Common">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.Generators.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.GLLAbstractParser">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.GLLAbstractParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.GLLGenerator">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.GLLGenerator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.GLLParser">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.GLLParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.Parser.Common">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.Parser.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.PrettyPrinter">
       <HintPath>..\packages\YC.PrettyPrinter.0.0.5\lib\net40\YC.PrettyPrinter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="YC.ReSharper.AbstractAnalysis.Plugin.Helper">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.ReSharper.AbstractAnalysis.Plugin.Helper.dll</HintPath>
+    <Reference Include="YC.QuickGraph">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.Data">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.FSA">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.FSA.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.FST">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.FST.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.Glee">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.Glee.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.Graphviz">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.Graphviz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraph.Petri">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraph.Petri.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.QuickGraphFS">
+      <HintPath>..\packages\YC.QuickGraph.3.7.3\lib\net45\YC.QuickGraphFS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.RIGLRCommon">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RIGLRCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.RIGLRGenerator">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RIGLRGenerator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.RIGLRParser">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RIGLRParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.RNGLR">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RNGLR.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRAbstractParser">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRAbstractParser.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RNGLRAbstractParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRCommon">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRCommon.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RNGLRCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="YC.RNGLRParser">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.RNGLRParser.dll</HintPath>
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.RNGLRParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="YC.SEL.SDK.Core">
-      <HintPath>..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.SEL.SDK.Core.dll</HintPath>
+    <Reference Include="YC.TreeDump">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.TreeDump.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.Utils.SourceText">
+      <HintPath>..\packages\YC.Utils.SourceText.0.3.0.1\lib\net45\YC.Utils.SourceText.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.YardFrontend">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.YardFrontend.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YC.YardPrinter">
+      <HintPath>..\packages\YC.SDK.Runtime.0.1.0.0-beta2\lib\net45\YC.YardPrinter.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
