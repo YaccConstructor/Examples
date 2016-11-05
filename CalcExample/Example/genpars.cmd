@@ -1,1 +1,1 @@
-..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.YaccConstructor.exe -i Calc.yrd
+..\packages\YC.SDK.0.1.0.0-beta2\tools\YC.YaccConstructor.exe -i Calc.yrd
