@@ -80,6 +80,12 @@ let (|Fsproj|Csproj|Vbproj|Shproj|) (projFileName:string) =
     | f when f.EndsWith("shproj") -> Shproj
     | _                           -> failwith (sprintf "Project file %s not supported. Unknown project type." projFileName)
 
+
+let runCmd cmdFile =
+    let retCode = Fake.ProcessHelper.Shell.Exec(System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName cmdFile)
+    if retCode <> 0
+    then failwithf "Execution of %A failed!" cmdFile
+
 // Generate assembly info files with the right version & up-to-date information
 Target "AssemblyInfo" (fun _ ->
     let getAssemblyInfoAttributes projectName =
