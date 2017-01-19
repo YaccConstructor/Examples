@@ -1,1 +1,0 @@
-..\packages\YC.FsYARD.0.2.8.16\lib\net40\YC.YaccConstructor.exe -i BoolCalc.yrd

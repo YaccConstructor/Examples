@@ -1,0 +1,1 @@
+..\..\packages\YC.SDK\tools\YC.YaccConstructor.exe -i EbnfIso.yrd

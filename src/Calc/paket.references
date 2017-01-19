@@ -1,0 +1,12 @@
+Argu
+DotNet.Contracts
+DotParser
+FSharp.Core
+FSharpx.Collections
+FSharpx.Collections.Experimental
+Mono.Addins
+YC.PrettyPrinter
+YC.QuickGraph
+YC.SDK
+YC.SDK.Runtime
+YC.Utils.SourceText

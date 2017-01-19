@@ -1,0 +1,31 @@
+source https://nuget.org/api/v2
+
+nuget Argu 3.2.0 framework: >= net451
+nuget DotNet.Contracts 1.10.10126.4 framework: >= net451
+nuget DotParser 1.0.6 framework: >= net451
+nuget FSharp.Core 4.0.0.1 framework: >= net451
+nuget FSharpx.Collections 1.15.1 framework: >= net451
+nuget FSharpx.Collections.Experimental 1.15.1 framework: >= net451
+nuget Mono.Addins 1.2 framework: >= net451
+nuget NuGet.CommandLine
+nuget NUnit 2.6.4
+nuget YC.PrettyPrinter 0.0.5 framework: >= net451
+nuget YC.QuickGraph 3.7.3 framework: >= net451
+nuget YC.SDK 0.1.0.0-beta2 beta framework: >= net451
+nuget YC.SDK.Runtime 0.1.0.0-beta2 beta framework: >= net451
+nuget YC.Utils.SourceText 0.3.0.1 framework: >= net451
+
+group Build
+  source https://nuget.org/api/v2
+  
+  nuget SourceLink.Fake
+  nuget FAKE
+  nuget FSharp.Formatting
+
+  github fsharp/FAKE modules/Octokit/Octokit.fsx
+
+group Test
+  source https://nuget.org/api/v2
+  
+  nuget NUnit ~> 2
+  nuget NUnit.Runners ~> 2
