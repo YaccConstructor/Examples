@@ -280,6 +280,18 @@ Target "KeepRunning" (fun _ ->
     watcher.Dispose()
 )
 
+Target "GenParsers" (fun _ ->
+    runCmd @"src\BoolCalc\genlex.cmd"
+    runCmd @"src\BoolCalc\genpars.cmd"
+    
+    runCmd @"src\Calc\genlex.cmd"
+    runCmd @"src\Calc\genpars.cmd"
+
+    runCmd @"src\EBNF\genlex.cmd"
+    runCmd @"src\EBNF\genpars.cmd"
+
+)
+
 Target "GenerateDocs" DoNothing
 
 let createIndexFsx lang =
@@ -377,6 +389,7 @@ Target "BuildPackage" DoNothing
 Target "All" DoNothing
 
 "AssemblyInfo"
+  ==> "GenParsers"
   ==> "Build"
   ==> "CopyBinaries"
   ==> "RunTests"
