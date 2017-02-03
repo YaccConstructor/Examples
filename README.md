@@ -1,6 +1,6 @@
 # YC.Examples
 
-Examples of YaccConstructor usage.
+Examples of YaccConstructor usage. Use build.cmd or build.sh for initial build. You can use MSVS-2015 or other IDEs with F# installed for development. 
 
 ## Build Status
 
