@@ -13,7 +13,7 @@ let chars = ['a'-'z']
 
 rule token = parse
 | whitespace { token lexbuf }
-| ['-']? digit+ ('.'digit+)? (['e' 'E'] digit+)? { NUMBER(lexeme lexbuf)}
+| digit+ ('.'digit+)? (['e' 'E'] digit+)? { NUMBER(lexeme lexbuf)}
 | '-' { MINUS(lexeme lexbuf) }
 | '(' { LBRACE(lexeme lexbuf) }
 | ')' { RBRACE(lexeme lexbuf)  }
@@ -21,6 +21,9 @@ rule token = parse
 | '+' { PLUS(lexeme lexbuf) }
 | "**" { POW(lexeme lexbuf) }
 | '*' { MULT(lexeme lexbuf) }
+| "SIN" { SIN(lexeme lexbuf) }
+| "COS" { COS(lexeme lexbuf) }
+| "ABS" { ABS(lexeme lexbuf) }
 | ';' { SEMI(lexeme lexbuf) }
 | '=' { EQ(lexeme lexbuf) }
 | chars+ { VAR(lexeme lexbuf) }
