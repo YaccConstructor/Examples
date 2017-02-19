@@ -13,8 +13,12 @@ let chars = ['a'-'z']
 
 rule token = parse
 | whitespace { token lexbuf }
-| ['-']? digit+ ('.'digit+)? (['e' 'E'] digit+)? { NUMBER(lexeme lexbuf)}
+| digit+ ('.'digit+)? (['e' 'E'] digit+)? { NUMBER(lexeme lexbuf)}
 | '-' { MINUS(lexeme lexbuf) }
+| 'K' { KNUTH(lexeme lexbuf) }
+| "Abs" { ABS(lexeme lexbuf) }
+| "Sin" { SIN(lexeme lexbuf) }
+| "Cos" { COS(lexeme lexbuf) }
 | '(' { LBRACE(lexeme lexbuf) }
 | ')' { RBRACE(lexeme lexbuf)  }
 | '/' { DIV(lexeme lexbuf) }
@@ -26,4 +30,3 @@ rule token = parse
 | chars+ { VAR(lexeme lexbuf) }
 | eof { RNGLR_EOF ("")}
 | _ {  failwithf "unexpected input: %s" <| string lexeme }
-
