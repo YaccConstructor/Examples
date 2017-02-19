@@ -56,4 +56,8 @@ powExpr:
    n=NUMBER {Num (float n)}
    | v=VAR {EVar(v)}
    | LBRACE e=expr RBRACE {e}
+   | MINUS e=powExpr {calcUnary Negate e}
+   | SIN e=powExpr {calcUnary Sin e}
+   | COS e=powExpr {calcUnary Cos e}
+   | ABS e=powExpr {calcUnary Abs e}
 

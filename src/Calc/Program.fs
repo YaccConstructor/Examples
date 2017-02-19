@@ -29,5 +29,5 @@ let execute (code) =
 
     tree.[0]
     
-let tree: result = execute("3+2;")
+let tree: result = execute("2+3;")
 printfn "Tree %A" tree
