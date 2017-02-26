@@ -36,24 +36,39 @@ stmt:
    SingleExpr(e)
    }
 
-binExpr<operand binOp>: h=operand tl=(binOp operand)* {
-   List.fold calcFunc h tl
+binExprLeft<operand binOp>: h=operand tl=(binOp operand)* {
+   List.fold calcFuncLeft h tl
 }
 
-expr: binExpr<term termOp>
+binExprRight<operand binOp>: h=(operand binOp)* tl=operand {
+   List.fold calcFuncRight tl (List.rev h)
+}
+
+unExpr<operator operand>: f=operator s=operand {
+   calcFuncUn f s
+}
+
+expr: binExprLeft<term termOp>
 
 termOp: PLUS {Plus} | MINUS {Minus}
 
-term: binExpr<factor factorOp>
+term: binExprLeft<factor factorOp>
 
 factorOp: MULT {Mult} | DIV {Div}
 
-factor: binExpr<powExpr powOp>
+factor: binExprRight<powExpr powOp>
 
-powOp: POW {Pow}
+powOp: POW {Pow} | KNUTH {Knuth(1)}
 
-powExpr:
+unOp: SIN {Sin} | COS {Cos} | ABS {Abs} | MINUS {Negate} 
+
+powExpr: binExprRight<knuthExpr knuthOp>
+
+knuthOp : KNUTH h=KNUTH+ { Knuth(getLength h) } 
+
+knuthExpr:
    n=NUMBER {Num (float n)}
+   | MINUS n=NUMBER {Num (-(float n))}
+   | unExpr<unOp powExpr>
    | v=VAR {EVar(v)}
    | LBRACE e=expr RBRACE {e}
-
