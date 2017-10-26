@@ -401,10 +401,10 @@ Target "All" DoNothing
   ==> "RunTests"
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
-#if MONO
-#else
-  =?> ("SourceLink", Pdbstr.tryFind().IsSome )
-#endif
+// #if MONO
+// #else
+//  =?> ("SourceLink", Pdbstr.tryFind().IsSome )
+// #endif
   ==> "NuGet"
   ==> "BuildPackage"
   ==> "All"
