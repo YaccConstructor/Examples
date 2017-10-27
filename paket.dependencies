@@ -5,6 +5,7 @@ nuget NUnit 2.6.4
 nuget YC.SDK  
 nuget YC.SDK.Runtime  
 nuget FSharpx.Collections.Experimental 1.15.2
+nuget FSharpx.Collections 1.15.2
 
 group Build
   source https://nuget.org/api/v2

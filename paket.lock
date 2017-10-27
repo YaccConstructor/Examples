@@ -6,7 +6,7 @@ NUGET
       FSharp.Core
       FSharpx.Collections.Experimental
     FSharp.Core (4.0.0.1)
-    FSharpx.Collections (1.17)
+    FSharpx.Collections (1.15.2)
       FSharp.Core
     FSharpx.Collections.Experimental (1.15.2)
       FSharp.Core
