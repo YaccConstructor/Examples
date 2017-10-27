@@ -1,2 +1,5 @@
-mono ../../packages/YC.SDK/tools/YC.FsLex.exe EbnfIso.fsl --unicode -o EbnfLexer.fs 
+#!/usr/bin/env bash
+
+mono ../../packages/YC.SDK/tools/YC.FsLex.exe --unicode -o EbnfLexer.fs EbnfIso.fsl
+
 echo
