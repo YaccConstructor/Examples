@@ -80,12 +80,6 @@ let (|Fsproj|Csproj|Vbproj|Shproj|) (projFileName:string) =
     | f when f.EndsWith("shproj") -> Shproj
     | _                           -> failwith (sprintf "Project file %s not supported. Unknown project type." projFileName)
 
-
-let runCmd cmdFile =
-    let retCode = Fake.ProcessHelper.Shell.Exec(System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName cmdFile)
-    if retCode <> 0
-    then failwithf "Execution of %A failed!" cmdFile
-
 // Generate assembly info files with the right version & up-to-date information
 Target "AssemblyInfo" (fun _ ->
     let getAssemblyInfoAttributes projectName =
@@ -286,15 +280,41 @@ Target "KeepRunning" (fun _ ->
     watcher.Dispose()
 )
 
-Target "GenParsers" (fun _ ->
-    runCmd @"src\BoolCalc\genlex.cmd"
-    runCmd @"src\BoolCalc\genpars.cmd"
-    
-    runCmd @"src\Calc\genlex.cmd"
-    runCmd @"src\Calc\genpars.cmd"
 
-    runCmd @"src\EBNF\genlex.cmd"
-    runCmd @"src\EBNF\genpars.cmd"
+let runCmd cmdFile =
+#if MONO
+    let retCode = Fake.ProcessHelper.Shell.Exec("bash", args = System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName (System.IO.Path.GetFullPath cmdFile))
+#else
+    let retCode = Fake.ProcessHelper.Shell.Exec(System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName (System.IO.Path.GetFullPath cmdFile))
+#endif
+    if retCode <> 0
+    then failwithf "Execution of %A failed!" cmdFile
+
+let runShell shellFile =
+#if MONO
+    runCmd (shellFile + ".sh")
+#else
+    runCmd (shellFile + ".cmd")
+#endif
+
+let runFSXScript fsxFile = 
+    let fullPath = System.IO.Path.GetFullPath(fsxFile + ".fsx")
+    printfn "dir: %s" (Directory.GetCurrentDirectory())
+    printfn "path: %s" fullPath
+    let ret, out = Fake.FSIHelper.executeFSI (System.IO.Path.GetDirectoryName fullPath) fullPath Seq.empty
+    if not ret 
+    then failwithf "ERROR: %A" out
+
+
+Target "GenParsers" (fun _ ->
+    runShell <| "src" @@ "BoolCalc" @@ "genlex"
+    runFSXScript <| "src" @@ "BoolCalc" @@ "genpars"
+    
+    runShell <| "src" @@ "Calc" @@ "genlex"
+    runFSXScript <| "src" @@ "Calc" @@ "genpars"
+
+    runShell <| "src" @@ "EBNF" @@ "genlex"
+    runFSXScript <| "src" @@ "EBNF" @@ "genpars"
 
 )
 

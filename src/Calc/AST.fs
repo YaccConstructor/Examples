@@ -48,7 +48,8 @@ let calcFuncLeft l (op, r) =
    | Div   -> (/)
    BinOp(op, l, r, operator (getValue l) (getValue r))
 
-let rec f (t : int) (ll : float) (rr : int) = match (rr, t) with
+let rec f (t : int) (ll : float) (rr : int) = 
+    match (rr, t) with
     | _, _ when rr < 0 || t < 0 -> failwithf "Wrong args | int Overflow"
     | 0, _ -> 1.0
     | 1, _ -> ll
