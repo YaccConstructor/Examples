@@ -1,4 +1,4 @@
-#I @"..\..\packages\YC.SDK\tools\"
+#I @"../../packages/YC.SDK/tools/"
 
 #r @"YC.Common.dll"
 #r @"YC.RNGLR.dll"
